@@ -1,0 +1,10 @@
+C:\Dev\GameDevelopment\Tools\McKahl\bin\Debug\McKahl.exe.config
+C:\Dev\GameDevelopment\Tools\McKahl\bin\Debug\McKahl.exe
+C:\Dev\GameDevelopment\Tools\McKahl\bin\Debug\McKahl.pdb
+C:\Dev\GameDevelopment\Tools\McKahl\bin\Debug\I2P.dll
+C:\Dev\GameDevelopment\Tools\McKahl\bin\Debug\McCore.dll
+C:\Dev\GameDevelopment\Tools\McKahl\bin\Debug\I2P.pdb
+C:\Dev\GameDevelopment\Tools\McKahl\bin\Debug\McCore.pdb
+C:\Dev\GameDevelopment\Tools\McKahl\obj\Debug\McKahl.csprojResolveAssemblyReference.cache
+C:\Dev\GameDevelopment\Tools\McKahl\obj\Debug\McKahl.exe
+C:\Dev\GameDevelopment\Tools\McKahl\obj\Debug\McKahl.pdb
