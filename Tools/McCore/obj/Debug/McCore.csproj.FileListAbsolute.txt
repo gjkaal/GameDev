@@ -1,0 +1,5 @@
+C:\Dev\GameDevelopment\GameDev\Tools\McCore\bin\Debug\McCore.dll
+C:\Dev\GameDevelopment\GameDev\Tools\McCore\bin\Debug\McCore.pdb
+C:\Dev\GameDevelopment\GameDev\Tools\McCore\obj\Debug\McCore.csprojResolveAssemblyReference.cache
+C:\Dev\GameDevelopment\GameDev\Tools\McCore\obj\Debug\McCore.dll
+C:\Dev\GameDevelopment\GameDev\Tools\McCore\obj\Debug\McCore.pdb
