@@ -11,18 +11,18 @@
         /// </summary>
         /// <value>The r.</value>
         /// <remarks>no comments</remarks>
-        public int R { get; set; }
+        public byte R { get; set; }
         /// <summary>
         /// Gets or sets the g part of the color.
         /// </summary>
         /// <value>The g.</value>
         /// <remarks>no comments</remarks>
-        public int G { get; set; }
+        public byte G { get; set; }
         /// <summary>
         /// Gets or sets the b part of the color.
         /// </summary>
         /// <value>The b.</value>
         /// <remarks>no comments</remarks>
-        public int B { get; set; }
+        public byte B { get; set; }
     }
 }
