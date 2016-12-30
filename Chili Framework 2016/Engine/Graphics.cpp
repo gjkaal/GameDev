@@ -399,7 +399,7 @@ void Graphics::DrawBitmap(const unsigned int bitmap[], int x, int y, int width, 
 	}
 }
 
-void Graphics::DrawCharacter(const unsigned int bitmap[], int offset, int x, int y, int width, int height)
+void Graphics::DrawFrame(const unsigned int bitmap[], int offset, int x, int y, int width, int height)
 {
 	assert(x >= 0);
 	assert(x < int(Graphics::ScreenWidth));
@@ -411,13 +411,16 @@ void Graphics::DrawCharacter(const unsigned int bitmap[], int offset, int x, int
 	assert(y + height < int(Graphics::ScreenHeight));
 	// aRGB value per pixel
 	int size = width * height;
-	// first char = space (32)
-	int n = (offset - 32) * size;
+	int n = offset;
 	for (int j = 0; j < height; j++) {
 		for (int i = 0; i < width; i++) {
-			Color c = { bitmap[n] };
+			unsigned int aRgb = bitmap[n];
 			n += 1;
-			pSysBuffer[Graphics::ScreenWidth * (y + j) + x + i] = c;
+			// ignore 0
+			if (aRgb != 0) {
+				Color c = { aRgb };
+				pSysBuffer[Graphics::ScreenWidth * (y + j) + x + i] = c;
+			}
 		}
 	}
 }
@@ -427,7 +430,8 @@ void Graphics::WriteLine(char * text, const unsigned int bitmap[], int x, int y,
 	
 	for (int n = 0; text[n] != '\0'; n++) {
 		int offset = x + n * charWidth;
-		DrawCharacter(bitmap, text[n], offset, y, charWidth, charHeight);
+		int imageOffset = (text[n] - 32) * charWidth * charHeight;
+		DrawFrame(bitmap, imageOffset, offset, y, charWidth, charHeight);
 	}
 }
 

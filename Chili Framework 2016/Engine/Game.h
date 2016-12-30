@@ -44,4 +44,6 @@ private:
 	/********************************/
 	/*  User Variables              */
 	/********************************/
+	int frameSpeed;
+	int frameCurrent;
 };

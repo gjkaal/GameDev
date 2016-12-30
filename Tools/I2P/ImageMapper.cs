@@ -5,43 +5,28 @@ using System.Text;
 
 namespace I2P
 {
-    public class ImageMapper
+    public class ImageMapper : Mapper
     {
 
-        private string _filePath;
-        private string _className;
-        private int _xSize;
-        private int _ySize;
-
-        public static ImageMapper CreateConverter(string sourceFilePath, string className,int xSize,int ySize)
+        public ImageMapper(string sourceFilePath, string className, int xSize, int ySize, Color ignoreColor) : base(sourceFilePath, className, xSize, ySize, ignoreColor)
         {
-            Mc.Core.Validate.NotNull("sourceFilePath", sourceFilePath);
-            var f = new FileInfo(sourceFilePath);
-            if (!f.Exists)
+            // should have folder
+            if (!IsFilePath)
             {
-                throw new Mc.Core.Exceptions.McException("The file does not exist:" + sourceFilePath);
+                throw new Mc.Core.Exceptions.McException("AnimationMapper requires a file but received a folder:" + sourceFilePath);
             }
-
-            return new ImageMapper()
-            {
-                _filePath = f.FullName,
-                _className = className,
-                _xSize = xSize,
-                _ySize = ySize,
-            };
         }
 
-        public void WriteCodeFiles(string outputPath)
+        public override void WriteCodeFiles(string outputPath)
         {
-            var headerFile = outputPath + "\\" + _className + ".h";
-            var codeFile = outputPath + "\\" + _className + ".cpp";
+            var headerFile = outputPath + "\\" + ClassName + ".h";
+            var codeFile = outputPath + "\\" + ClassName + ".cpp";
 
             // get the file
-            var source = Image.FromFile(_filePath);
-            var img = new Bitmap(source, _xSize, _ySize);
-            var mapSize = img.Width * img.Height; // 3 bytes per pixel
+            var source = Image.FromFile(FilePath);
+            var img = new Bitmap(source, XSize, YSize);
+            var mapSize = img.Width * img.Height; 
             byte[] fileData;
-
             var header = string.Format(@"
 #pragma once
 #include ""stdint.h""
@@ -50,7 +35,7 @@ class {0}
 {{
 public:
 	const static unsigned int imgData[{1}];	
-}};", _className, mapSize);
+}};", ClassName, mapSize);
             // write header
             fileData = Encoding.ASCII.GetBytes(header);
             using (var fs = new FileStream(headerFile, FileMode.Create))
@@ -69,9 +54,9 @@ public:
         private string ImageMap(Bitmap img)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("#include	\"{0}.h\"", _className);
+            sb.AppendFormat("#include	\"{0}.h\"", ClassName);
             sb.AppendLine("");
-            sb.AppendFormat("const unsigned int {0}::imgData[] = {{", _className);
+            sb.AppendFormat("const unsigned int {0}::imgData[] = {{", ClassName);
             sb.AppendLine();
             sb.AppendFormat("// Image {0} columns x {1} rows pixels", img.Width, img.Height);
             sb.AppendLine();

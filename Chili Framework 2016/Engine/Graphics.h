@@ -77,7 +77,7 @@ public:
 	void DrawRect(int x1, int y1, int x2, int y2, Color c);
 	void DrawBitmap(const unsigned int bitmap[], int x, int y, int width, int height);
 
-	void DrawCharacter(const unsigned int bitmap[], int offset, int x, int y, int width, int height);
+	void DrawFrame(const unsigned int bitmap[], int offset, int x, int y, int width, int height);
 
 	void WriteLine(char* text, const unsigned int bitmap[], int x, int y, int charWidth, int charHeight);
 

@@ -1,5 +1,5 @@
-/****************************************************************************************** 
- *	Chili DirectX Framework Version 16.07.20											  *	
+/******************************************************************************************
+ *	Chili DirectX Framework Version 16.07.20											  *
  *	Game.cpp																			  *
  *	Copyright 2016 PlanetChili.net <http://www.planetchili.net>							  *
  *																						  *
@@ -21,18 +21,24 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include "SplashScreen.h"
+#include "Explosion.h"
 
-Game::Game( MainWindow& wnd )
+// chrone to calculate frames
+#include <chrono>
+
+Game::Game(MainWindow& wnd)
 	:
-	wnd( wnd ),
-	gfx( wnd )
+	wnd(wnd),
+	gfx(wnd)
 {
-	byte b = Ascii::cm[0];
+	// initialize framespeed, higher number = lower animation speed
+	// 1000 = 1000ms = 1s
+	frameSpeed = 100;
 }
 
 void Game::Go()
 {
-	gfx.BeginFrame();	
+	gfx.BeginFrame();
 	UpdateModel();
 	ComposeFrame();
 	gfx.EndFrame();
@@ -40,7 +46,14 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	
+	// Calculate current frame and update using frame current count down
+	// framecount is changed every framespeed milliseconds
+	using namespace std::chrono;
+		milliseconds ms = duration_cast< milliseconds >(
+			system_clock::now().time_since_epoch()
+			);
+	frameCurrent = (ms.count() / frameSpeed) % MAXINT;
+
 }
 
 void Game::ComposeFrame()
@@ -56,10 +69,17 @@ void Game::ComposeFrame()
 	gfx.WriteLine("  Marjolein kaal     ", Ascii::cm, 120, 120, 8, 8);*/
 	gfx.DrawBitmap(SplashScreen::imgData, 0, 0, 800, 600);
 	gfx.WriteLine("                       ", Ascii::cm, 120, 104, 16, 16);
-	gfx.WriteLine("      a game by        ", Ascii::cm, 120, 120, 16,16); 
-	gfx.WriteLine("    Marjolein kaal     ", Ascii::cm, 120, 136, 16,16); 
-	gfx.WriteLine("                       ", Ascii::cm, 120, 152, 16,16);
+	gfx.WriteLine("      a game by        ", Ascii::cm, 120, 120, 16, 16);
+	gfx.WriteLine("    Marjolein kaal     ", Ascii::cm, 120, 136, 16, 16);
+	gfx.WriteLine("                       ", Ascii::cm, 120, 152, 16, 16);
 
 	// gfx.DrawCharacter(Ascii::cm, 65, 120, 120, 16, 16);
+	int explosionFrame = frameCurrent % Explosion::frameCount;
+	gfx.DrawFrame(
+		Explosion::frameData, 
+		explosionFrame * Explosion::frameSize, 500, 500, 
+		Explosion::XSize, 
+		Explosion::YSize);
+
 
 }

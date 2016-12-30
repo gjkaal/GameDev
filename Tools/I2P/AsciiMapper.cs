@@ -6,41 +6,23 @@ using System.Text;
 
 namespace I2P
 {
-    public class AsciiMapper
+    public class AsciiMapper : Mapper
     {
-        private string _folderPath;
-        private string _className;
-        private int _xSize;
-        private int _ySize;
         private const int FirstChar = 32; // space
         private const int LastChar = 127; // DEL
-
         private string _ignoreColor;
 
-        public static AsciiMapper CreateConverter(string folderPath, string className, int xSize, int ySize, Color ignoreColor)
+        public AsciiMapper(string folderPath, string className, int xSize, int ySize, Color ignoreColor) : base(folderPath, className, xSize, ySize, ignoreColor)
         {
-            Mc.Core.Validate.NotNull("folderPath", folderPath);
-            var f = new DirectoryInfo(folderPath);
-            if (!f.Exists)
-            {
-                throw new Mc.Core.Exceptions.McException("The folder does not exist:" + folderPath);
-            }
 
-            return new AsciiMapper()
-            {
-                _folderPath = f.FullName,
-                _className = className,
-                _xSize = xSize,
-                _ySize = ySize,
-                _ignoreColor = ((uint)ignoreColor.ToArgb()).ToString(CultureInfo.InvariantCulture) + ","
-            };
+            _ignoreColor = ((uint)ignoreColor.ToArgb()).ToString(CultureInfo.InvariantCulture) + ",";
         }
 
-        public void WriteCodeFiles(string outputPath)
+        public override void WriteCodeFiles(string outputPath)
         {
-            var headerFile = outputPath + "\\" + _className + ".h";
-            var codeFile = outputPath + "\\" + _className + ".cpp";
-            var mapSize = (LastChar - FirstChar + 1)*_xSize*_ySize*3; //73728 with 16 x 16 characters
+            var headerFile = outputPath + "\\" + ClassName + ".h";
+            var codeFile = outputPath + "\\" + ClassName + ".cpp";
+            var mapSize = (LastChar - FirstChar + 1) * XSize * YSize * 3; //73728 with 16 x 16 characters
             byte[] fileData;
 
             var header = string.Format(@"
@@ -51,7 +33,7 @@ class {0}
 {{
 public:
 	const static unsigned int cm[{1}];	
-}};", _className, mapSize);
+}};", ClassName, mapSize);
             // write header
             fileData = Encoding.ASCII.GetBytes(header);
             using (var fs = new FileStream(headerFile, FileMode.Create))
@@ -70,9 +52,9 @@ public:
         private string AsciiMap()
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("#include	\"{0}.h\"", _className);
+            sb.AppendFormat("#include	\"{0}.h\"", ClassName);
             sb.AppendLine("");
-            sb.AppendFormat("const unsigned int {0}::cm[] = {{", _className);
+            sb.AppendFormat("const unsigned int {0}::cm[] = {{", ClassName);
             sb.AppendLine();
             const byte start = FirstChar;
             const byte end = LastChar;
@@ -130,12 +112,12 @@ public:
                             fileName = "d" + fileName;
                             break;
                     }
-                    var f = new FileInfo(_folderPath + "/" + fileName + ".png");
+                    var f = new FileInfo(FilePath + "/" + fileName + ".png");
                     if (f.Exists)
                     {
                         // read file and add to stringbuilder
                         var img = Image.FromFile(f.FullName);
-                        AddPixels(sb, fileName, c, new Bitmap(img,_xSize, _ySize));
+                        AddPixels(sb, fileName, c, new Bitmap(img, XSize, YSize));
                     }
                     else
                     {
@@ -149,29 +131,29 @@ public:
 
         private void AddPixels(StringBuilder sb, string name, int index, Bitmap bitmap)
         {
-            
+
             sb.AppendFormat("// {0} = {1} ", name, index);
             sb.AppendLine();
-            for (var y = 0; y < bitmap.Height && y < _ySize; y++)
+            for (var y = 0; y < bitmap.Height && y < YSize; y++)
             {
-                for (var x = 0; x < bitmap.Width && x < _xSize; x++)
+                for (var x = 0; x < bitmap.Width && x < XSize; x++)
                 {
                     // add putpixel per color,
                     // starting from the origin
-                    var c =(uint) bitmap.GetPixel(x, y).ToArgb();
+                    var c = (uint)bitmap.GetPixel(x, y).ToArgb();
                     sb.AppendFormat(string.Format(CultureInfo.InvariantCulture, "{0},", c).PadRight(10, ' '));
                 }
                 // fill until size 
-                for (var x = bitmap.Width; x < _xSize; x++)
+                for (var x = bitmap.Width; x < XSize; x++)
                 {
                     sb.Append(_ignoreColor);
                 }
                 sb.AppendLine();
             }
             // empty lines
-            for (var y = bitmap.Height; y < _ySize; y++)
+            for (var y = bitmap.Height; y < YSize; y++)
             {
-                for (var x = 0; x < _xSize; x++)
+                for (var x = 0; x < XSize; x++)
                 {
                     sb.Append(_ignoreColor);
                 }
@@ -179,14 +161,14 @@ public:
             }
         }
 
-        private  void AddPixels(StringBuilder sb, string name, int index)
+        private void AddPixels(StringBuilder sb, string name, int index)
         {
             sb.AppendFormat("// {0} = {1} ", name, index);
             sb.AppendLine();
             // empty lines
-            for (var y = 0; y < _xSize; y++)
+            for (var y = 0; y < YSize; y++)
             {
-                for (var x = 0; x < _ySize; x++)
+                for (var x = 0; x < XSize; x++)
                 {
                     sb.Append(_ignoreColor);
                 }
