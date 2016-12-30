@@ -52,7 +52,7 @@ void Game::ComposeFrame()
 	gfx.DrawRect(250, 300, 400, 450, 255, 255, 255);
 	gfx.DrawRect(252, 302, 398, 448, 255, 255, 255);
 
-	gfx.WriteLine("MARJOLEIN      ", Ascii::cm, 120, 120, 16, 16);
+	gfx.WriteLine("  Marjolein kaal     ", Ascii::cm, 120, 120, 8, 8);
 
 	// gfx.DrawCharacter(Ascii::cm, 65, 120, 120, 16, 16);
 

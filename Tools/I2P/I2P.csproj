@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AsciiMapper.cs" />
     <Compile Include="ImageConverter.cs" />
+    <Compile Include="ImageMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
