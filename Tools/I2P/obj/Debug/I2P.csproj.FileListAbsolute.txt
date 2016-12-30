@@ -5,3 +5,10 @@ C:\Dev\GameDevelopment\Tools\I2P\bin\Debug\McCore.pdb
 C:\Dev\GameDevelopment\Tools\I2P\obj\Debug\I2P.csprojResolveAssemblyReference.cache
 C:\Dev\GameDevelopment\Tools\I2P\obj\Debug\I2P.dll
 C:\Dev\GameDevelopment\Tools\I2P\obj\Debug\I2P.pdb
+C:\Dev\GameDevelopment\GameDev\Tools\I2P\bin\Debug\I2P.dll
+C:\Dev\GameDevelopment\GameDev\Tools\I2P\bin\Debug\I2P.pdb
+C:\Dev\GameDevelopment\GameDev\Tools\I2P\bin\Debug\McCore.dll
+C:\Dev\GameDevelopment\GameDev\Tools\I2P\bin\Debug\McCore.pdb
+C:\Dev\GameDevelopment\GameDev\Tools\I2P\obj\Debug\I2P.csprojResolveAssemblyReference.cache
+C:\Dev\GameDevelopment\GameDev\Tools\I2P\obj\Debug\I2P.dll
+C:\Dev\GameDevelopment\GameDev\Tools\I2P\obj\Debug\I2P.pdb

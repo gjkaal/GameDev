@@ -21,6 +21,7 @@
 #pragma once
 #include <d3d11.h>
 #include <wrl.h>
+#include <stdint.h>
 #include "ChiliException.h"
 #include "Colors.h"
 
@@ -56,6 +57,30 @@ public:
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
 	}
 	void PutPixel( int x,int y,Color c );
+	Color PeekPixel(int x, int y);
+
+	void DrawHLine(int x, int y, int length, int r, int g, int b)
+	{
+		DrawHLine(x, y, length,{ unsigned char(r),unsigned char(g),unsigned char(b) });
+	}
+	void DrawHLine(int x, int y, int length, Color c);
+	void DrawVLine(int x, int y, int length, int r, int g, int b)
+	{
+		DrawVLine(x, y, length,{ unsigned char(r),unsigned char(g),unsigned char(b) });
+	}
+	void DrawVLine(int x, int y, int length, Color c);
+
+	void DrawRect(int x, int y, int x2, int y2, int r, int g, int b)
+	{
+		DrawRect(x, y,  x2,  y2, { unsigned char(r),unsigned char(g),unsigned char(b) });
+	}
+	void DrawRect(int x1, int y1, int x2, int y2, Color c);
+	void DrawBitmap(const uint8_t bitmap[], int x, int y, int width, int height);
+
+	void DrawCharacter(const uint8_t bitmap[], int offset, int x, int y, int width, int height);
+
+	void WriteLine(char* text, const uint8_t bitmap[], int x, int y, int charWidth, int charHeight);
+
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

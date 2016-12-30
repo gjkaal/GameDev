@@ -1,0 +1,8 @@
+﻿  Graphics.cpp
+  Generating code
+  2 of 632 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Engine.vcxproj -> C:\Dev\GameDevelopment\GameDev\Chili Framework 2016\Release\Engine.exe
+  Engine.vcxproj -> C:\Dev\GameDevelopment\GameDev\Chili Framework 2016\Release\Engine.pdb (Full PDB)

@@ -162,6 +162,7 @@ namespace I2P
             e.DrawImage(img, 0, 0);
             return new Bitmap(img, new Size(xSize, ySize));
         }
+      
 
         private static void AddPixelMap(RGB ignoreColor, StringBuilder sb, Bitmap bitmap)
         {
@@ -178,7 +179,7 @@ namespace I2P
                     // add putpixel per color,
                     // starting from the origin
                     var c = bitmap.GetPixel(x, y);
-                    var testIgnore = ColorExtenstions.Equals(c, ignoreColor);
+                    var testIgnore = ColorExtentions.Equals(c, ignoreColor);
                     if (!testIgnore)
                     {
                         if (x == 0)
@@ -200,19 +201,19 @@ namespace I2P
                 }
             }
         }
-    }
+}
 
-    public static class ColorExtenstions
+public static class ColorExtentions
+{
+    public static bool Equals(this Color c, RGB rgb)
     {
-        public static bool Equals(this Color c, RGB rgb)
-        {
-            var dif = 0;
-            dif += Math.Abs(c.R - rgb.R);
-            dif += Math.Abs(c.G - rgb.G);
-            dif += Math.Abs(c.B - rgb.B);
+        var dif = 0;
+        dif += Math.Abs(c.R - rgb.R);
+        dif += Math.Abs(c.G - rgb.G);
+        dif += Math.Abs(c.B - rgb.B);
 
-            if (dif < 5) return true;
-            return false;
-        }
+        if (dif < 5) return true;
+        return false;
     }
+}
 }

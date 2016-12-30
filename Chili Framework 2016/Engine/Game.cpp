@@ -26,6 +26,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd )
 {
+	byte b = Ascii::cm[0];
 }
 
 void Game::Go()
@@ -38,8 +39,21 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	
 }
 
 void Game::ComposeFrame()
 {
+	gfx.DrawHLine(100, 100, 600, 255, 255, 255);
+	gfx.DrawVLine(100, 100, 400, 255, 255, 255);
+	gfx.DrawHLine(100, 500, 600, 255, 255, 255);
+	gfx.DrawVLine(700, 100, 400, 255, 255, 255);
+
+	gfx.DrawRect(250, 300, 400, 450, 255, 255, 255);
+	gfx.DrawRect(252, 302, 398, 448, 255, 255, 255);
+
+	gfx.WriteLine("MARJOLEIN      ", Ascii::cm, 120, 120, 16, 16);
+
+	// gfx.DrawCharacter(Ascii::cm, 65, 120, 120, 16, 16);
+
 }
