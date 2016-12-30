@@ -20,6 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "SplashScreen.h"
 
 Game::Game( MainWindow& wnd )
 	:
@@ -44,7 +45,7 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	gfx.DrawHLine(100, 100, 600, 255, 255, 255);
+	/*gfx.DrawHLine(100, 100, 600, 255, 255, 255);
 	gfx.DrawVLine(100, 100, 400, 255, 255, 255);
 	gfx.DrawHLine(100, 500, 600, 255, 255, 255);
 	gfx.DrawVLine(700, 100, 400, 255, 255, 255);
@@ -52,7 +53,12 @@ void Game::ComposeFrame()
 	gfx.DrawRect(250, 300, 400, 450, 255, 255, 255);
 	gfx.DrawRect(252, 302, 398, 448, 255, 255, 255);
 
-	gfx.WriteLine("  Marjolein kaal     ", Ascii::cm, 120, 120, 8, 8);
+	gfx.WriteLine("  Marjolein kaal     ", Ascii::cm, 120, 120, 8, 8);*/
+	gfx.DrawBitmap(SplashScreen::imgData, 0, 0, 800, 600);
+	gfx.WriteLine("                       ", Ascii::cm, 120, 104, 16, 16);
+	gfx.WriteLine("      a game by        ", Ascii::cm, 120, 120, 16,16); 
+	gfx.WriteLine("    Marjolein kaal     ", Ascii::cm, 120, 136, 16,16); 
+	gfx.WriteLine("                       ", Ascii::cm, 120, 152, 16,16);
 
 	// gfx.DrawCharacter(Ascii::cm, 65, 120, 120, 16, 16);
 

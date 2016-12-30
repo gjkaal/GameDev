@@ -1,4 +1,5 @@
-﻿using Mc.Core;
+﻿using System.Drawing;
+using Mc.Core;
 
 namespace McKahl
 {
@@ -33,11 +34,11 @@ namespace McKahl
             //    img.WriteFile(fName, newFile, 10, 10);
             //}
 
-            //// Create an ascii character map
-            //var asciiMapFolder = @"C:\Images\ascii";
-            //var splashClassName = "Ascii";
-            //var charMap = I2P.AsciiMapper.CreateConverter(asciiMapFolder, splashClassName, 8,8);
-            //charMap.WriteCodeFiles(@"C:\Dev\GameDevelopment\GameDev\Chili Framework 2016\Engine");
+            // Create an ascii character map
+            var asciiMapFolder = @"C:\Images\ascii";
+            var asciiClassName = "Ascii";
+            var charMap = I2P.AsciiMapper.CreateConverter(asciiMapFolder, asciiClassName, 16, 16, Color.Magenta);
+            charMap.WriteCodeFiles(@"C:\Dev\GameDevelopment\GameDev\Chili Framework 2016\Engine");
 
 
             // Create an image map

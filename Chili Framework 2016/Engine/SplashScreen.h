@@ -5,5 +5,5 @@
 class SplashScreen
 {
 public:
-	const static uint8_t imgData[1440000];	
+	const static unsigned int imgData[480000];	
 };

@@ -380,26 +380,26 @@ void Graphics::DrawRect(int x1, int y1, int x2, int y2, Color c)
 	}
 }
 
-void Graphics::DrawBitmap(const uint8_t bitmap[], int x, int y, int width, int height) {
+void Graphics::DrawBitmap(const unsigned int bitmap[], int x, int y, int width, int height) {
 	assert(x >= 0);
 	assert(x < int(Graphics::ScreenWidth));
 	assert(y >= 0);
 	assert(y < int(Graphics::ScreenHeight));
-	assert(width >= 0);
-	assert(x+ width < int(Graphics::ScreenWidth));
-	assert(height >= 0);
-	assert(y+ height < int(Graphics::ScreenHeight));
-	int n = 2;
+	assert(width > 0);
+	assert(x+ width-1 < int(Graphics::ScreenWidth));
+	assert(height > 0);
+	assert(y+ height-1 < int(Graphics::ScreenHeight));
+	int n = 0;
 	for (int j = 0; j < height; j++) {
 		for (int i = 0; i < width; i++) {
-			Color c = { unsigned char(bitmap[n]),unsigned char(bitmap[n+1]),unsigned char(bitmap[n+2]) };
-			n += 3;
+			Color c = { bitmap[n] };
+			n += 1;
 			pSysBuffer[Graphics::ScreenWidth * (y+j) + x+i] = c;
 		}
 	}
 }
 
-void Graphics::DrawCharacter(const uint8_t bitmap[], int offset, int x, int y, int width, int height)
+void Graphics::DrawCharacter(const unsigned int bitmap[], int offset, int x, int y, int width, int height)
 {
 	assert(x >= 0);
 	assert(x < int(Graphics::ScreenWidth));
@@ -409,20 +409,20 @@ void Graphics::DrawCharacter(const uint8_t bitmap[], int offset, int x, int y, i
 	assert(x + width < int(Graphics::ScreenWidth));
 	assert(height >= 0);
 	assert(y + height < int(Graphics::ScreenHeight));
-	// 3 values per pixel
-	int size = width * height * 3;
+	// aRGB value per pixel
+	int size = width * height;
 	// first char = space (32)
 	int n = (offset - 32) * size;
 	for (int j = 0; j < height; j++) {
 		for (int i = 0; i < width; i++) {
-			Color c = { unsigned char(bitmap[n]),unsigned char(bitmap[n + 1]),unsigned char(bitmap[n + 2]) };
-			n += 3;
+			Color c = { bitmap[n] };
+			n += 1;
 			pSysBuffer[Graphics::ScreenWidth * (y + j) + x + i] = c;
 		}
 	}
 }
 
-void Graphics::WriteLine(char * text, const uint8_t bitmap[], int x, int y, int charWidth, int charHeight)
+void Graphics::WriteLine(char * text, const unsigned int bitmap[], int x, int y, int charWidth, int charHeight)
 {
 	
 	for (int n = 0; text[n] != '\0'; n++) {

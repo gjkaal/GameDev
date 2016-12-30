@@ -5,5 +5,5 @@
 class Ascii
 {
 public:
-	const static uint8_t cm[18432];	
+	const static unsigned int cm[73728];	
 };

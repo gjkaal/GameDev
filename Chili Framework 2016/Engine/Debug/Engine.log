@@ -2,5 +2,6 @@
   Game.cpp
   Main.cpp
   MainWindow.cpp
+  SplashScreen.cpp
   Engine.vcxproj -> C:\Dev\GameDevelopment\GameDev\Chili Framework 2016\Debug\Engine.exe
   Engine.vcxproj -> C:\Dev\GameDevelopment\GameDev\Chili Framework 2016\Debug\Engine.pdb (Partial PDB)

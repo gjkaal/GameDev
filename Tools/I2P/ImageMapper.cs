@@ -39,7 +39,7 @@ namespace I2P
             // get the file
             var source = Image.FromFile(_filePath);
             var img = new Bitmap(source, _xSize, _ySize);
-            var mapSize = img.Width * img.Height * 3; // 3 bytes per pixel
+            var mapSize = img.Width * img.Height; // 3 bytes per pixel
             byte[] fileData;
 
             var header = string.Format(@"
@@ -49,7 +49,7 @@ namespace I2P
 class {0}
 {{
 public:
-	const static uint8_t imgData[{1}];	
+	const static unsigned int imgData[{1}];	
 }};", _className, mapSize);
             // write header
             fileData = Encoding.ASCII.GetBytes(header);
@@ -71,7 +71,7 @@ public:
             var sb = new StringBuilder();
             sb.AppendFormat("#include	\"{0}.h\"", _className);
             sb.AppendLine("");
-            sb.AppendFormat("const uint8_t {0}::imgData[] = {{", _className);
+            sb.AppendFormat("const unsigned int {0}::imgData[] = {{", _className);
             sb.AppendLine();
             sb.AppendFormat("// Image {0} columns x {1} rows pixels", img.Width, img.Height);
             sb.AppendLine();
@@ -80,8 +80,8 @@ public:
                 for (var x = 0; x < img.Width; x++)
                 {
                     // add RGB value per color,
-                    var c = img.GetPixel(x, y);
-                    sb.AppendFormat(string.Format(CultureInfo.InvariantCulture, "{0},{1},{2}, ", c.R, c.G, c.B).PadRight(15, ' '));
+                    var c = (uint)img.GetPixel(x, y).ToArgb();
+                    sb.AppendFormat(string.Format(CultureInfo.InvariantCulture, "{0}, ", c).PadRight(8, ' '));
                 }
                 sb.AppendLine();
             }

@@ -12,11 +12,12 @@ namespace I2P
         private string _className;
         private int _xSize;
         private int _ySize;
-        private const int firstChar = 32; // space
-        private const int lastChar = 127; // DEL
+        private const int FirstChar = 32; // space
+        private const int LastChar = 127; // DEL
 
+        private string _ignoreColor;
 
-        public static AsciiMapper CreateConverter(string folderPath, string className, int xSize, int ySize)
+        public static AsciiMapper CreateConverter(string folderPath, string className, int xSize, int ySize, Color ignoreColor)
         {
             Mc.Core.Validate.NotNull("folderPath", folderPath);
             var f = new DirectoryInfo(folderPath);
@@ -30,7 +31,8 @@ namespace I2P
                 _folderPath = f.FullName,
                 _className = className,
                 _xSize = xSize,
-                _ySize = ySize
+                _ySize = ySize,
+                _ignoreColor = ((uint)ignoreColor.ToArgb()).ToString(CultureInfo.InvariantCulture) + ","
             };
         }
 
@@ -38,7 +40,7 @@ namespace I2P
         {
             var headerFile = outputPath + "\\" + _className + ".h";
             var codeFile = outputPath + "\\" + _className + ".cpp";
-            var mapSize = (lastChar - firstChar + 1)*_xSize*_ySize*3; //73728 with 16 x 16 characters
+            var mapSize = (LastChar - FirstChar + 1)*_xSize*_ySize*3; //73728 with 16 x 16 characters
             byte[] fileData;
 
             var header = string.Format(@"
@@ -48,7 +50,7 @@ namespace I2P
 class {0}
 {{
 public:
-	const static uint8_t cm[{1}];	
+	const static unsigned int cm[{1}];	
 }};", _className, mapSize);
             // write header
             fileData = Encoding.ASCII.GetBytes(header);
@@ -70,10 +72,10 @@ public:
             var sb = new StringBuilder();
             sb.AppendFormat("#include	\"{0}.h\"", _className);
             sb.AppendLine("");
-            sb.AppendFormat("const uint8_t {0}::cm[] = {{", _className);
+            sb.AppendFormat("const unsigned int {0}::cm[] = {{", _className);
             sb.AppendLine();
-            const byte start = firstChar;
-            const byte end = lastChar;
+            const byte start = FirstChar;
+            const byte end = LastChar;
             for (var c = start; c <= end; c++)
             {
                 // try get file
@@ -147,6 +149,7 @@ public:
 
         private void AddPixels(StringBuilder sb, string name, int index, Bitmap bitmap)
         {
+            
             sb.AppendFormat("// {0} = {1} ", name, index);
             sb.AppendLine();
             for (var y = 0; y < bitmap.Height && y < _ySize; y++)
@@ -155,13 +158,13 @@ public:
                 {
                     // add putpixel per color,
                     // starting from the origin
-                    var c = bitmap.GetPixel(x, y);
-                    sb.AppendFormat(string.Format(CultureInfo.InvariantCulture, "{0},{1},{2}, ", c.R, c.G, c.B).PadRight(15, ' '));
+                    var c =(uint) bitmap.GetPixel(x, y).ToArgb();
+                    sb.AppendFormat(string.Format(CultureInfo.InvariantCulture, "{0},", c).PadRight(10, ' '));
                 }
                 // fill until size 
                 for (var x = bitmap.Width; x < _xSize; x++)
                 {
-                    sb.Append(@"255,0,255,".PadRight(15, ' '));
+                    sb.Append(_ignoreColor);
                 }
                 sb.AppendLine();
             }
@@ -170,7 +173,7 @@ public:
             {
                 for (var x = 0; x < _xSize; x++)
                 {
-                    sb.Append(@"255,0,255,".PadRight(15, ' '));
+                    sb.Append(_ignoreColor);
                 }
                 sb.AppendLine();
             }
@@ -185,7 +188,7 @@ public:
             {
                 for (var x = 0; x < _ySize; x++)
                 {
-                    sb.Append(@"255,0,255,".PadRight(15, ' '));
+                    sb.Append(_ignoreColor);
                 }
                 sb.AppendLine();
             }
