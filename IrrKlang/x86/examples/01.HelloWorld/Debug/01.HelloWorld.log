@@ -1,0 +1,7 @@
+﻿  main.cpp
+c:\dev\gamedevelopment\gamedev\irrklang\x86\examples\01.helloworld\main.cpp(67): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\conio.h(452): note: see declaration of 'getch'
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1189,5): warning MSB8012: TargetPath(C:\Dev\GameDevelopment\GameDev\IrrKlang\x86\examples\01.HelloWorld\Debug\01.HelloWorld.exe) does not match the Linker's OutputFile property value (C:\Dev\GameDevelopment\GameDev\IrrKlang\x86\bin\win32-visualstudio\01.HelloWorld.exe). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+main.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+  01.HelloWorld.vcxproj -> C:\Dev\GameDevelopment\GameDev\IrrKlang\x86\examples\01.HelloWorld\Debug\01.HelloWorld.exe
+  01.HelloWorld.vcxproj -> Debug\01.HelloWorld.pdb (Full PDB)

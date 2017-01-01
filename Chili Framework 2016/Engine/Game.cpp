@@ -23,17 +23,23 @@
 #include "SplashScreen.h"
 #include "Explosion.h"
 
+
 // chrone to calculate frames
 #include <chrono>
+
 
 Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
-	gfx(wnd)
+	gfx(wnd),
+	// init sound files
+	soundBG(L"Groovy.wav")
 {
 	// initialize framespeed, higher number = lower animation speed
 	// 1000 = 1000ms = 1s
 	frameSpeed = 100;
+	soundBG.Play();
+
 }
 
 void Game::Go()
@@ -83,3 +89,4 @@ void Game::ComposeFrame()
 
 
 }
+

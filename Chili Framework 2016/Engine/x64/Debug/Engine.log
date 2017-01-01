@@ -1,0 +1,4 @@
+﻿  Graphics.cpp
+  Main.cpp
+Main.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) class irrklang::ISoundEngine * __vectorcall irrklang::createIrrKlangDevice(enum irrklang::E_SOUND_OUTPUT_DRIVER,int,char const *,char const *)" (__imp_?createIrrKlangDevice@irrklang@@YQPEAVISoundEngine@1@W4E_SOUND_OUTPUT_DRIVER@1@HPEBD1@Z) referenced in function wWinMain
+C:\Dev\GameDevelopment\GameDev\Chili Framework 2016\x64\Debug\Engine.exe : fatal error LNK1120: 1 unresolved externals

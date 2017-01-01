@@ -24,6 +24,7 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Ascii.h"
+#include "Sound.h"
 
 class Game
 {
@@ -41,9 +42,11 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
+
 	/********************************/
 	/*  User Variables              */
 	/********************************/
 	int frameSpeed;
 	int frameCurrent;
+	Sound soundBG;
 };

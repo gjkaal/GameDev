@@ -1,0 +1,8 @@
+﻿  main.cpp
+main.cpp(107): warning C4996: 'kbhit': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _kbhit. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\conio.h(458): note: see declaration of 'kbhit'
+main.cpp(109): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\conio.h(452): note: see declaration of 'getch'
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1189,5): warning MSB8012: TargetPath(C:\Dev\GameDevelopment\GameDev\IrrKlang\64bit\examples\02.3DSound\x64\Debug\02.3DSound.exe) does not match the Linker's OutputFile property value (C:\Dev\GameDevelopment\GameDev\IrrKlang\64bit\bin\Winx64-visualStudio\02.3DSound.exe). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+  02.3DSound.vcxproj -> C:\Dev\GameDevelopment\GameDev\IrrKlang\64bit\examples\02.3DSound\x64\Debug\02.3DSound.exe
+  02.3DSound.vcxproj -> C:\Dev\GameDevelopment\GameDev\IrrKlang\64bit\examples\02.3DSound\x64\Debug\02.3DSound.pdb (Full PDB)
