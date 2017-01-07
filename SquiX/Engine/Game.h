@@ -25,6 +25,7 @@
 #include "Graphics.h"
 #include "Ascii.h"
 #include "Sound.h"
+#include "Bitmaps.h"
 
 class Game
 {
@@ -33,6 +34,7 @@ public:
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
 	void Go();
+
 private:
 	void ComposeFrame();
 	void UpdateModel();
@@ -41,6 +43,9 @@ private:
 	/********************************/
 private:
 	MainWindow& wnd;
+
+	Sound soundBG;
+	Bitmaps bitMaps;
 	Graphics gfx;
 
 	/********************************/
@@ -48,5 +53,5 @@ private:
 	/********************************/
 	int frameSpeed;
 	int frameCurrent;
-	Sound soundBG;
+
 };

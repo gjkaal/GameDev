@@ -68,7 +68,15 @@ public:
                 {
                     // add RGB value per color,
                     var c = (uint)img.GetPixel(x, y).ToArgb();
-                    sb.AppendFormat(string.Format(CultureInfo.InvariantCulture, "{0}, ", c).PadRight(8, ' '));
+                    if (c == IgnoreColor.ToArgb())
+                    {
+                        sb.Append("0, ".PadRight(8, ' '));
+                    }
+                    else
+                    {
+                        sb.Append(string.Format(CultureInfo.InvariantCulture, "{0}, ", c).PadRight(8, ' '));
+                    }
+                    
                 }
                 sb.AppendLine();
             }

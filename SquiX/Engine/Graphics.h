@@ -24,6 +24,7 @@
 #include <stdint.h>
 #include "ChiliException.h"
 #include "Colors.h"
+#include "McImageMap.h"
 
 class Graphics
 {
@@ -52,6 +53,7 @@ public:
 	Graphics& operator=( const Graphics& ) = delete;
 	void EndFrame();
 	void BeginFrame();
+
 	void PutPixel( int x,int y,int r,int g,int b )
 	{
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
@@ -80,6 +82,8 @@ public:
 	void DrawFrame(const unsigned int bitmap[], int offset, int x, int y, int width, int height);
 
 	void WriteLine(char* text, const unsigned int bitmap[], int x, int y, int charWidth, int charHeight);
+
+	void DrawImage(const int * imageInfo, const unsigned int * imageData, int imageId, int xPosition, int yPosition);
 
 	~Graphics();
 private:

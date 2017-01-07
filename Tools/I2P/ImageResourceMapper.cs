@@ -49,10 +49,14 @@ namespace I2P
             sb.AppendFormat(@"
 #pragma once
 #include ""stdint.h""
+#include ""McImageMap.h""
 
-class {0}
+class {0}: public Mc::ImageMap
 {{
 public:
+    {0}();
+	unsigned int* FrameData() override {{ return (unsigned int*) imageData; }}
+	int* FrameInfo() override {{ return (int*) imageInfo; }}
 ", ClassName);
             var totalMapSize = 0;
             var imageCount = 0;
@@ -72,26 +76,18 @@ public:
                         throw new NotImplementedException();
                 }
                 imgSize = img.Width * img.Height;
-
-                sb.AppendFormat("// frame n = {0} starting at position [{1}];", source.Name, totalMapSize);
+                sb.AppendFormat(@"	const static int {0}={1};", source.Name.ToLowerInvariant(), imageCount);
                 sb.AppendLine();
                 totalMapSize += imgSize;
                 imageCount++;
-
-                sb.AppendFormat(@"const static unsigned int {0}={1};", source.Name.ToLowerInvariant(), totalMapSize);
-                sb.AppendLine();
-                sb.AppendFormat(@"const static unsigned int {0}XSize={1};", source.Name.ToLowerInvariant(), img.Width);
-                sb.AppendLine();
-                sb.AppendFormat(@"const static unsigned int {0}YSize={1};", source.Name.ToLowerInvariant(), img.Height);
-                sb.AppendLine();
             }
             // add frame map
             // add frame count
-            sb.AppendFormat(@"const static unsigned int imageData[{0}];	", totalMapSize);
+            sb.AppendFormat(@"	const static unsigned int imageData[{0}];	", totalMapSize);
             sb.AppendLine();
-            sb.AppendFormat(@"const static int imageInfo[{0}];	", imageCount * 3);
+            sb.AppendFormat(@"	const static int imageInfo[{0}];	", imageCount * 3);
             sb.AppendLine();
-            sb.AppendFormat(@"const static int imageCount={0};	", imageCount);
+            sb.AppendFormat(@"	const static int imageCount={0};	", imageCount);
             sb.AppendLine();
 
             sb.AppendLine("};");
@@ -105,6 +101,8 @@ public:
             var sb = new StringBuilder();
             var sbImgInfo = new StringBuilder();
             sb.AppendFormat("#include	\"{0}.h\"", ClassName);
+            sb.AppendLine("");
+            sb.AppendFormat("{0}::{0}(){{}}", ClassName);
             sb.AppendLine("");
             sb.AppendFormat("const unsigned int {0}::imageData[] = {{", ClassName);
             sb.AppendLine();
@@ -148,7 +146,7 @@ public:
 
             // end imgData
             sb.AppendLine("};");
-            sb.AppendFormat("const unsigned int {0}::imageInfo[] = {{{1}}};", ClassName, sbImgInfo);
+            sb.AppendFormat("const int {0}::imageInfo[] = {{{1}}};", ClassName, sbImgInfo);
             sb.AppendLine();
             return sb.ToString();
 

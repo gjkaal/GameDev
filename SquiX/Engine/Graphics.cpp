@@ -435,6 +435,20 @@ void Graphics::WriteLine(char * text, const unsigned int bitmap[], int x, int y,
 	}
 }
 
+void Graphics::DrawImage(const int * imageInfo,const unsigned int * imageData, int imageId, int xPosition, int yPosition)
+{ 
+	int imgInfoOffset = imageId * 3;
+	int imgOffset = imageInfo[imgInfoOffset];
+	int imgXSize = imageInfo[imgInfoOffset + 1];
+	int imgYSize = imageInfo[imgInfoOffset + 2];
+	DrawFrame(
+		imageData,
+		imgOffset, xPosition, yPosition,
+		imgXSize,
+		imgYSize);
+}
+
+
 //////////////////////////////////////////////////
 //           Graphics Exception
 Graphics::Exception::Exception(HRESULT hr, const std::wstring& note, const wchar_t* file, unsigned int line)

@@ -22,7 +22,7 @@
 #include "Game.h"
 #include "SplashScreen.h"
 #include "Explosion.h"
-
+#include "Bitmaps.h"
 
 // chrone to calculate frames
 #include <chrono>
@@ -33,7 +33,8 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	// init sound files
-	soundBG(L"Groovy.wav")
+	soundBG(L"Groovy.wav"),
+	bitMaps()
 {
 	// initialize framespeed, higher number = lower animation speed
 	// 1000 = 1000ms = 1s
@@ -86,6 +87,9 @@ void Game::ComposeFrame()
 		explosionFrame * Explosion::frameSize, 500, 500, 
 		Explosion::XSize, 
 		Explosion::YSize);
+
+	int bitmapImg = Bitmaps::esher2;
+	gfx.DrawImage(bitMaps.imageInfo, bitMaps.imageData, bitmapImg, 450, 450);
 
 
 }
