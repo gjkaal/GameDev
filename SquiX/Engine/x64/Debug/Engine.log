@@ -1,0 +1,15 @@
+﻿  compilation header save succeeded; see C:\Dev\GameDevelopment\GameDev\SquiX\Engine\FramebufferPS.shh
+  compilation header save succeeded; see C:\Dev\GameDevelopment\GameDev\SquiX\Engine\FramebufferVS.shh
+  Ascii.cpp
+  DXErr.cpp
+  Explosion.cpp
+  Game.cpp
+  Graphics.cpp
+  Keyboard.cpp
+  Main.cpp
+  MainWindow.cpp
+  Mouse.cpp
+  Sound.cpp
+  SplashScreen.cpp
+  Engine.vcxproj -> C:\Dev\GameDevelopment\GameDev\SquiX\x64\Debug\Engine.exe
+  Engine.vcxproj -> C:\Dev\GameDevelopment\GameDev\SquiX\x64\Debug\Engine.pdb (Partial PDB)

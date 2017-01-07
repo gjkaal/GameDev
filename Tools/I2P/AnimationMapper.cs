@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -53,30 +52,18 @@ public:
             var totalMapSize = 0;
             var frameCount = 0;
             var frameSize = 0;
-            foreach (var fileInfo in d.GetFiles())
+            foreach (var source in GetImages())
             {
-                // loop through frames
-                try
-                {
-                    var source = Image.FromFile(fileInfo.FullName);
-                    var name = fileInfo.Name;
-                    name = name.Substring(0, name.IndexOf('.'));
-                    var img = new Bitmap(source, XSize, YSize);
-                    frameSize = img.Width * img.Height;
-                    sb.AppendFormat("// frame n = {0} starting at position [{1}];", name, totalMapSize);
-                    sb.AppendLine();
-                    totalMapSize += frameSize;
-                    frameCount++;
-                    //sb.AppendFormat("const static unsigned int {0}[{1}];",name, mapSize);
-                }
-                catch (Exception e)
-                {
-                    sb.AppendLine("// could not load image");
-                    sb.AppendLine("/*");
-                    sb.AppendLine(e.ToString());
-                    sb.AppendLine("*/");
-                    throw;
-                }
+                var name = source.Name;
+                name = name.Substring(0, name.IndexOf('.'));
+                var img = new Bitmap(source.Image, XSize, YSize);
+                frameSize = img.Width * img.Height;
+                sb.AppendFormat("// frame n = {0} starting at position [{1}];", name, totalMapSize);
+                sb.AppendLine();
+                totalMapSize += frameSize;
+                frameCount++;
+                //sb.AppendFormat("const static unsigned int {0}[{1}];",name, mapSize);
+
             }
             // add frame map
             // add frame count
@@ -106,39 +93,25 @@ public:
             sb.AppendLine();
 
             var totalMapSize = 0;
-            foreach (var fileInfo in d.GetFiles())
+            foreach (var source in GetImages())
             {
-                // loop through frames
-                try
+                var img = new Bitmap(source.Image, XSize, YSize);
+                var mapSize = img.Width * img.Height;
+                sb.AppendFormat("// frame n = {0} starting at position [{1}];", source.Name, totalMapSize);
+                sb.AppendLine();
+                totalMapSize += mapSize;
+                //sb.AppendFormat("const static unsigned int {0}[{1}];",name, mapSize);
+                for (var y = 0; y < img.Height; y++)
                 {
-                    var source = Image.FromFile(fileInfo.FullName);
-                    var name = fileInfo.Name;
-                    name = name.Substring(0, name.IndexOf('.'));
-                    var img = new Bitmap(source, XSize, YSize);
-                    var mapSize = img.Width * img.Height;
-                    sb.AppendFormat("// frame n = {0} starting at position [{1}];", name, totalMapSize);
-                    sb.AppendLine();
-                    totalMapSize += mapSize;
-                    //sb.AppendFormat("const static unsigned int {0}[{1}];",name, mapSize);
-                    for (var y = 0; y < img.Height; y++)
+                    for (var x = 0; x < img.Width; x++)
                     {
-                        for (var x = 0; x < img.Width; x++)
-                        {
-                            // add RGB value per color,
-                            var c = (uint)img.GetPixel(x, y).ToArgb();
-                            sb.AppendFormat(string.Format(CultureInfo.InvariantCulture, "{0}, ", c).PadRight(8, ' '));
-                        }
-                        sb.AppendLine();
+                        // add RGB value per color,
+                        var c = (uint)img.GetPixel(x, y).ToArgb();
+                        sb.AppendFormat(string.Format(CultureInfo.InvariantCulture, "{0}, ", c).PadRight(8, ' '));
                     }
+                    sb.AppendLine();
                 }
-                catch (Exception e)
-                {
-                    sb.AppendLine("// could not load image");
-                    sb.AppendLine("/*");
-                    sb.AppendLine(e.ToString());
-                    sb.AppendLine("*/");
-                    throw;
-                }
+
             }
 
             // end imgData

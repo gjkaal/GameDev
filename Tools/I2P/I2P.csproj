@@ -42,11 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimationMapper.cs" />
+    <Compile Include="ImageResourceMapper.cs" />
     <Compile Include="AsciiMapper.cs" />
     <Compile Include="ImageConverter.cs" />
     <Compile Include="ImageMapper.cs" />
     <Compile Include="Mapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResizeOption.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\McCore\McCore.csproj">
