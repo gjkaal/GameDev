@@ -80,11 +80,12 @@ public:
 	void DrawBitmap(const unsigned int bitmap[], int x, int y, int width, int height);
 
 	void DrawFrame(const unsigned int bitmap[], int offset, int x, int y, int width, int height);
+	void DrawFrame(const unsigned int bitmap[], int offset, int x, int y, int width, int height, int xOffset, int yOffset);
 
 	void WriteLine(char* text, const unsigned int bitmap[], int x, int y, int charWidth, int charHeight);
 
-	void DrawImage(const int * imageInfo, const unsigned int * imageData, int imageId, int xPosition, int yPosition);
-
+	void DrawImage(Mc::IImageMap& imageMap, int imageId, int xPosition, int yPosition);
+	void DrawImage(Mc::IImageMap& imageMap, int imageId, int xPosition, int yPosition, int xOffset, int yOffset);
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

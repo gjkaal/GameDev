@@ -26,6 +26,7 @@
 #include "Ascii.h"
 #include "Sound.h"
 #include "Bitmaps.h"
+#include <chrono>
 
 class Game
 {
@@ -53,5 +54,7 @@ private:
 	/********************************/
 	int frameSpeed;
 	int frameCurrent;
+	__int64 freq;
+	LARGE_INTEGER frameCount;
 
 };

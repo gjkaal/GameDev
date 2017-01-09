@@ -1,8 +1,9 @@
 #pragma once
 namespace Mc {
-	class ImageMap {
+	class IImageMap {
 	public:
-		virtual unsigned int* FrameData();
-		virtual int* FrameInfo();
+		virtual ~IImageMap() {}
+		virtual unsigned int* FrameData()=0;
+		virtual int* FrameInfo()=0;
 	};
 }

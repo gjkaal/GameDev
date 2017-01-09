@@ -51,7 +51,7 @@ namespace I2P
 #include ""stdint.h""
 #include ""McImageMap.h""
 
-class {0}: public Mc::ImageMap
+class {0}: public Mc::IImageMap
 {{
 public:
     {0}();

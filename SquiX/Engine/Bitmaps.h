@@ -3,7 +3,7 @@
 #include "stdint.h"
 #include "McImageMap.h"
 
-class Bitmaps: public Mc::ImageMap
+class Bitmaps: public Mc::IImageMap
 {
 public:
     Bitmaps();
@@ -11,9 +11,9 @@ public:
 	int* FrameInfo() override { return (int*) imageInfo; }
 	const static int books=0;
 	const static int earth1=1;
-	const static int esher2=2;
-	const static int esher3=3;
-	const static int esher4=4;
+	const static int escher2=2;
+	const static int escher3=3;
+	const static int escher4=4;
 	const static int exit=5;
 	const static int fire=6;
 	const static int fishblue=7;

@@ -399,7 +399,11 @@ void Graphics::DrawBitmap(const unsigned int bitmap[], int x, int y, int width, 
 	}
 }
 
-void Graphics::DrawFrame(const unsigned int bitmap[], int offset, int x, int y, int width, int height)
+void Graphics::DrawFrame(
+	const unsigned int bitmap[], 
+	int imageOffset, 
+	int x, int y, 
+	int width, int height)
 {
 	assert(x >= 0);
 	assert(x < int(Graphics::ScreenWidth));
@@ -411,16 +415,48 @@ void Graphics::DrawFrame(const unsigned int bitmap[], int offset, int x, int y, 
 	assert(y + height < int(Graphics::ScreenHeight));
 	// aRGB value per pixel
 	int size = width * height;
-	int n = offset;
+	int n = imageOffset;
 	for (int j = 0; j < height; j++) {
 		for (int i = 0; i < width; i++) {
 			unsigned int aRgb = bitmap[n];
-			n += 1;
 			// ignore 0
 			if (aRgb != 0) {
 				Color c = { aRgb };
 				pSysBuffer[Graphics::ScreenWidth * (y + j) + x + i] = c;
 			}
+			n += 1;
+		}
+	}
+}
+
+void Graphics::DrawFrame(
+	const unsigned int bitmap[],
+	int imageOffset,
+	int x, int y,
+	int width, int height,
+	int xOffset, int yOffset)
+{
+	assert(x >= 0);
+	assert(x < int(Graphics::ScreenWidth));
+	assert(y >= 0);
+	assert(y < int(Graphics::ScreenHeight));
+	assert(width >= 0);
+	assert(x + width < int(Graphics::ScreenWidth));
+	assert(height >= 0);
+	assert(y + height < int(Graphics::ScreenHeight));
+	// aRGB value per pixel
+	int size = width * height;
+	int n = (xOffset % width) + (yOffset % height) * width;
+	for (int j = 0; j < height; j++) {
+		for (int i = 0; i < width; i++) {
+			unsigned int aRgb = bitmap[n + imageOffset];
+			// ignore 0
+			if (aRgb != 0) {
+				Color c = { aRgb };
+				pSysBuffer[Graphics::ScreenWidth * (y + j) + x + i] = c;
+			}
+			n += 1;
+			if (n > size) n = 0;
 		}
 	}
 }
@@ -435,17 +471,33 @@ void Graphics::WriteLine(char * text, const unsigned int bitmap[], int x, int y,
 	}
 }
 
-void Graphics::DrawImage(const int * imageInfo,const unsigned int * imageData, int imageId, int xPosition, int yPosition)
+void Graphics::DrawImage(Mc::IImageMap& imageMap, int imageId, int xPosition, int yPosition)
 { 
 	int imgInfoOffset = imageId * 3;
-	int imgOffset = imageInfo[imgInfoOffset];
-	int imgXSize = imageInfo[imgInfoOffset + 1];
-	int imgYSize = imageInfo[imgInfoOffset + 2];
+	int* frameInfo = imageMap.FrameInfo();
+	unsigned int* frameData = imageMap.FrameData();
+	int imgOffset = frameInfo[imgInfoOffset];
+	int imgXSize = frameInfo[imgInfoOffset + 1];
+	int imgYSize = frameInfo[imgInfoOffset + 2];
 	DrawFrame(
-		imageData,
+		frameData,
 		imgOffset, xPosition, yPosition,
-		imgXSize,
-		imgYSize);
+		imgXSize, imgYSize);
+}
+
+void Graphics::DrawImage(Mc::IImageMap& imageMap, int imageId, int xPosition, int yPosition, int xOffset, int yOffset)
+{
+	int imgInfoOffset = imageId * 3;
+	int* frameInfo = imageMap.FrameInfo();
+	unsigned int* frameData = imageMap.FrameData();
+	int imgOffset = frameInfo[imgInfoOffset];
+	int imgXSize = frameInfo[imgInfoOffset + 1];
+	int imgYSize = frameInfo[imgInfoOffset + 2];
+	DrawFrame(
+		frameData,
+		imgOffset, xPosition, yPosition,
+		imgXSize, imgYSize, 
+		xOffset, yOffset);
 }
 
 
